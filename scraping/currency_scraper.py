@@ -13,6 +13,12 @@ def currency_scraper():
     html = urlopen(url)
     bsObj = BeautifulSoup(html.read().decode('utf-8', 'ignore'), "html.parser")
     
-    symbol = bsObj.find_all('a', {'class': 'Fw(b)'})
+    data = []
+
+    symbols = bsObj.find_all('a', {'class': 'Fw(b)'})
+
+    for symbol in symbols:
+        cast_currency = Currency(symbol.get('title'), symbol.text)
+        data.append(cast_currency)
     
-    print(symbol)
+    return data

@@ -12,14 +12,10 @@ def configure_routes(app):
 
     @app.route('/api/currencies', methods=['GET'])
     def get_currencies():
-        currency_scraper()
 
         data = {
             'status' : True,
-            'data': [
-                {'symbol': 'USDEUR'},
-                {'symbol': 'USDJPY'},
-            ] 
+            'data': currency_scraper()
         }
 
         return json.dumps(data)
