@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, Response
 import json
 
 from scraping.currency_scraper import currency_scraper
@@ -18,4 +18,6 @@ def configure_routes(app):
             'data': currency_scraper()
         }
 
-        return json.dumps(data)
+        response = Response(json.dumps(data), mimetype='application/json')
+
+        return response

@@ -19,6 +19,6 @@ def currency_scraper():
 
     for symbol in symbols:
         cast_currency = Currency(symbol.get('title'), symbol.text)
-        data.append(cast_currency)
+        data.append(cast_currency.__dict__)
     
     return data
