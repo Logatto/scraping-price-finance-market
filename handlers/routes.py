@@ -1,7 +1,7 @@
 from flask import request, Response
 import json
 
-from scraping.currency_scraper import currency_scraper
+from scraping.currency_scraper import currencies_scraper, currency_scraper
 
 
 def configure_routes(app):
@@ -15,7 +15,19 @@ def configure_routes(app):
 
         data = {
             'status' : True,
-            'data': currency_scraper()
+            'data': currencies_scraper()
+        }
+
+        response = Response(json.dumps(data), mimetype='application/json')
+
+        return response
+
+    @app.route('/api/currency/<symbol_text>', methods=['GET'])
+    def get_currency(symbol_text):
+        
+        data = {
+            'status' : True,
+            'data': currency_scraper(symbol_text)
         }
 
         response = Response(json.dumps(data), mimetype='application/json')
