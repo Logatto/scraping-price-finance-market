@@ -48,7 +48,7 @@ def test_get_currency():
 
     if first_currency and "symbol_text" in first_currency:
 
-        url = '/api/currency/%s' % first_currency["symbol_text"]
+        url = '/api/currencies/%s' % first_currency["symbol_text"]
 
         response = client.get(url)
         result = json.loads(response.get_data(as_text=True))
@@ -60,9 +60,24 @@ def test_get_currency():
             and "symbol_text" in result["data"]
             and result["data"]["symbol_text"] == first_currency["symbol_text"]
             ) == True
-        
-
 
     else:
         assert False
 
+
+
+def test_get_currency_fail():
+    app = Flask(__name__)
+    configure_routes(app)
+    client = app.test_client()
+
+    url = '/api/currencies/any'
+
+    response = client.get(url)
+    result = json.loads(response.get_data(as_text=True))
+
+    assert response.status_code == 200
+    assert ("status" in result 
+            and result["status"] == False
+            ) == True
+    assert ("data" in result) == True
