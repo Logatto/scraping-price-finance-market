@@ -41,5 +41,5 @@ http://127.0.0.1:5000/api/currencies
 *Get one Currency*
 
 ```
-http://127.0.0.1:5000/api/currency/USDEUR
+http://127.0.0.1:5000/api/currencies/USDEUR
 ```
